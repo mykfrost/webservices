@@ -2,8 +2,12 @@ package com.chinatown254.webservices;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,14 +42,30 @@ public class MainActivity extends AppCompatActivity {
     }
     public void runClickHandler(View view){
 //        Output.append("Button Clicked \n");
-        MyAssynchTask task = new MyAssynchTask();
-        task.execute("String 1" ,"String 2" , "String 3");
+//        MyAsynchTask Asstask = new MyAsynchTask();
+//        Asstask.execute("String 1" ,"String 2" , "String 3");
     }
     public void clearClickHandler(View view){
         Output.setText("");
     }
 
-    private class MyAssynchTask extends AsyncTask<String , String , View >{
+    private class MyTaskLoader extends AsyncTaskLoader<String>{
+
+        public MyTaskLoader(@NonNull Context context) {
+            super(context);
+        }
+
+        @Nullable
+        @Override
+        public String loadInBackground() {
+            return null;
+        }
+    }
+
+
+
+
+    private class MyAsynchTask extends AsyncTask<String , String , View >{
 
         @Override
         protected View doInBackground(String... strings) {
