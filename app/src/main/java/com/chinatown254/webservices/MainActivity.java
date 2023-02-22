@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+    private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
  TextView Output ;
  Button clear , run;
     @Override
