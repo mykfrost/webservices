@@ -10,14 +10,19 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+import com.chinatown254.webservices.services.MyService;
+
+public class MainActivity extends AppCompatActivity  {
     private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
  TextView Output ;
  Button clear , run;
@@ -47,54 +52,59 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 //        Output.append("Button Clicked \n");
 //        MyAsynchTask Asstask = new MyAsynchTask();
 //        Asstask.execute("String 1" ,"String 2" , "String 3");
+//        getSupportLoaderManager().initLoader(0,null,this).forceLoad();
 
-        getSupportLoaderManager().initLoader(0,null,this).forceLoad();
+
     }
     public void clearClickHandler(View view){
-        Output.setText("");
+//        Output.setText("");
+        Toast.makeText(this, "Intent Service Launched", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this , MyService.class);
+        intent.setData(Uri.parse(JSON_URL));
+        startService(intent);
     }
+//
+//    @NonNull
+//    @Override
+//    public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+//        Output.append("Creating the loader \n");
+//        return new MyTaskLoader(this);
+//    }
 
-    @NonNull
-    @Override
-    public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-        Output.append("Creating the loader \n");
-        return new MyTaskLoader(this);
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<String > loader, String data) {
-// handle what happens when data is returned from the loader .
-        Output.append("Loader Finished , returned" +data+"\n");
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<String> loader) {
-
-    }
-
-    private static class MyTaskLoader extends AsyncTaskLoader<String>{
-
-        public MyTaskLoader(@NonNull Context context) {
-            super(context);
-        }
-
-        @Nullable
-        @Override
-        public String loadInBackground() {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            return "FROM THE LOADER";
-        }
-
-        @Override
-        public void deliverResult(@Nullable String data) {
-            data += " ,delivered";
-            super.deliverResult(data);
-        }
-    }
+//    @Override
+//    public void onLoadFinished(@NonNull Loader<String > loader, String data) {
+//// handle what happens when data is returned from the loader .
+//        Output.append("Loader Finished , returned" +data+"\n");
+//    }
+//
+//    @Override
+//    public void onLoaderReset(@NonNull Loader<String> loader) {
+//
+//    }
+//
+//    private static class MyTaskLoader extends AsyncTaskLoader<String>{
+//
+//        public MyTaskLoader(@NonNull Context context) {
+//            super(context);
+//        }
+//
+//        @Nullable
+//        @Override
+//        public String loadInBackground() {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//            return "FROM THE LOADER";
+//        }
+//
+//        @Override
+//        public void deliverResult(@Nullable String data) {
+//            data += " ,delivered";
+//            super.deliverResult(data);
+//        }
+//    }
 
 
 
