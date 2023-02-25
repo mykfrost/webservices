@@ -29,7 +29,7 @@ import com.chinatown254.webservices.utils.NetworkHelper;
 public class MainActivity extends AppCompatActivity  {
     private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
     private boolean networkOk;
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
