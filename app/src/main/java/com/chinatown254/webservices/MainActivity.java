@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +27,14 @@ import com.chinatown254.webservices.services.MyService;
 
 public class MainActivity extends AppCompatActivity  {
     private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
+            Output.append(message + "\n");
+        }
+    };
  TextView Output ;
  Button clear , run;
     @Override
@@ -33,6 +44,9 @@ public class MainActivity extends AppCompatActivity  {
         Output = findViewById(R.id.output);
         run = findViewById(R.id.btn_run_code);
         clear = findViewById(R.id.btn_clear);
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mBroadcastReceiver , new
+                IntentFilter(MyService.MY_SERVICE_MESSAGE));
 
         run.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +62,14 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mBroadcastReceiver);
+    }
+
     public void runClickHandler(View view){
 //        Output.append("Button Clicked \n");
 //        MyAsynchTask Asstask = new MyAsynchTask();
