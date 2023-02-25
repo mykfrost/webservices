@@ -24,10 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinatown254.webservices.services.MyService;
+import com.chinatown254.webservices.utils.NetworkHelper;
 
 public class MainActivity extends AppCompatActivity  {
     private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
-
+    private boolean networkOk;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity  {
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mBroadcastReceiver , new
                 IntentFilter(MyService.MY_SERVICE_MESSAGE));
+
+        networkOk = NetworkHelper.hasNetworkAccess(this);
+        Output.append("Network OK " + networkOk);
 
         run.setOnClickListener(new View.OnClickListener() {
             @Override
