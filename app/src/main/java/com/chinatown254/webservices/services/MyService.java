@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
 public class MyService extends IntentService {
@@ -26,7 +26,10 @@ public class MyService extends IntentService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
+    Intent messageIntent = new Intent(MY_SERVICE_MESSAGE);
+        messageIntent.putExtra(MY_SERVICE_PAYLOAD , "Service ALl Done!");
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getApplicationContext());
+        manager.sendBroadcast(messageIntent);
     }
 
     @Override
