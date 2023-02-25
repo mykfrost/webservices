@@ -1,5 +1,10 @@
 package com.chinatown254.webservices.utils;
 
+import static android.service.controls.ControlsProviderService.TAG;
+
+import android.nfc.Tag;
+import android.util.Log;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

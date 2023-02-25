@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity  {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mBroadcastReceiver , new
                 IntentFilter(MyService.MY_SERVICE_MESSAGE));
 
+
         networkOk = NetworkHelper.hasNetworkAccess(this);
-        Output.append("Network OK " + networkOk);
+        Output.append("Network OK \n" + networkOk);
 
         run.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +76,18 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     public void runClickHandler(View view){
-//        Output.append("Button Clicked \n");
 //        MyAsynchTask Asstask = new MyAsynchTask();
 //        Asstask.execute("String 1" ,"String 2" , "String 3");
 //        getSupportLoaderManager().initLoader(0,null,this).forceLoad();
 //        Toast.makeText(this, "Intent Service Launched", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this , MyService.class);
-        intent.setData(Uri.parse(JSON_URL));
-        startService(intent);
+        if (networkOk) {
+            Intent intent = new Intent(this , MyService.class);
+            intent.setData(Uri.parse(JSON_URL));
+            startService(intent);
+        }else {
+            Toast.makeText(this, "Network Unavailable!", Toast.LENGTH_LONG).show();
+        }
+
 
     }
     public void clearClickHandler(View view){
