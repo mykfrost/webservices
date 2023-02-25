@@ -26,7 +26,7 @@ public class MyService extends IntentService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    Intent messageIntent = new Intent(MY_SERVICE_MESSAGE);
+        Intent messageIntent = new Intent(MY_SERVICE_MESSAGE);
         messageIntent.putExtra(MY_SERVICE_PAYLOAD , "Service ALl Done!");
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getApplicationContext());
         manager.sendBroadcast(messageIntent);

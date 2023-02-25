@@ -75,15 +75,15 @@ public class MainActivity extends AppCompatActivity  {
 //        MyAsynchTask Asstask = new MyAsynchTask();
 //        Asstask.execute("String 1" ,"String 2" , "String 3");
 //        getSupportLoaderManager().initLoader(0,null,this).forceLoad();
-
-
-    }
-    public void clearClickHandler(View view){
-//        Output.setText("");
-        Toast.makeText(this, "Intent Service Launched", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Intent Service Launched", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this , MyService.class);
         intent.setData(Uri.parse(JSON_URL));
         startService(intent);
+
+    }
+    public void clearClickHandler(View view){
+        Output.setText("");
+
     }
 //
 //    @NonNull
