@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8sp"
+    android:scrollbars="vertical"
     tools:context=".MainActivity">
 
     <TextView
@@ -27,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:backgroundTint="#A028B5"
             android:text="Clear"
             app:layout_constraintBaseline_toBaselineOf="@+id/btn_run_code"
@@ -36,10 +38,11 @@
             android:id="@+id/btn_run_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="164dp"
             android:layout_marginBottom="4dp"
             android:text="Run Code"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.857"
             app:layout_constraintStart_toEndOf="@+id/btn_clear" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

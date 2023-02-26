@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chinatown254.webservices.model.DataItem;
 import com.chinatown254.webservices.services.MyService;
 import com.chinatown254.webservices.utils.NetworkHelper;
 
@@ -32,8 +33,15 @@ public class MainActivity extends AppCompatActivity  {
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
-            Output.append(message + "\n");
+//            String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
+            DataItem[] dataItems = (DataItem[])
+                    intent.getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
+
+            for (DataItem item : dataItems) {
+                Output.append(item.getItemName() + "\n");
+                Log.d(TAG, "onReceive: "+ item.getItemName());
+            }
+
         }
     };
  TextView Output ;
@@ -53,19 +61,9 @@ public class MainActivity extends AppCompatActivity  {
         networkOk = NetworkHelper.hasNetworkAccess(this);
         Output.append("Network OK \n" + networkOk);
 
-        run.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                runClickHandler(v);
-            }
-        });
+        run.setOnClickListener(this::runClickHandler);
 
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearClickHandler(v);
-            }
-        });
+        clear.setOnClickListener(this::clearClickHandler);
     }
 
     @Override

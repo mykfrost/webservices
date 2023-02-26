@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 public class DataItem implements Parcelable {
     public String getItemName() {
-        return ItemName;
+        return itemName;
     }
 
     public void setItemName(String itemName) {
-        ItemName = itemName;
+        this.itemName = itemName;
     }
 
     public String getCategory() {
@@ -52,7 +52,7 @@ public class DataItem implements Parcelable {
         this.image = image;
     }
 
-    private String ItemName;
+    private String itemName;
     private String category;
     private String description;
     private int sort;
@@ -67,7 +67,7 @@ public class DataItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.ItemName);
+        dest.writeString(this.itemName);
         dest.writeString(this.category);
         dest.writeString(this.description);
         dest.writeInt(this.sort);
@@ -76,7 +76,7 @@ public class DataItem implements Parcelable {
     }
 
     public void readFromParcel(Parcel source) {
-        this.ItemName = source.readString();
+        this.itemName = source.readString();
         this.category = source.readString();
         this.description = source.readString();
         this.sort = source.readInt();
@@ -88,7 +88,7 @@ public class DataItem implements Parcelable {
     }
 
     protected DataItem(Parcel in) {
-        this.ItemName = in.readString();
+        this.itemName = in.readString();
         this.category = in.readString();
         this.description = in.readString();
         this.sort = in.readInt();
