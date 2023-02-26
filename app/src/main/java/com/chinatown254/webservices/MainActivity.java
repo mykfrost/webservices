@@ -18,26 +18,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.chinatown254.webservices.model.DataItem;
-import com.chinatown254.webservices.services.MyService;
+import com.chinatown254.webservices.services.MyServiceSecured;
 import com.chinatown254.webservices.utils.NetworkHelper;
 
 public class MainActivity extends AppCompatActivity  {
 //    private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
 //    private static final String XML_URL = "http://560057.youcanlearnit.net/services/xml/itemsfeed.php";
-private static final String XML_URL = "http://560057.youcanlearnit.net/secured/xml/itemsfeed.php";
+   private static final String XML_URL = "http://560057.youcanlearnit.net/secured/xml/itemsfeed.php";
     private boolean networkOk;
+//    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+////            String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
+//            DataItem[] dataItems = (DataItem[])
+//                    intent.getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
+//
+//            for (DataItem item : dataItems) {
+//                Output.append(item.getItemName() + "\n");
+//                Log.d(TAG, "onReceive: "+ item.getItemName());
+//            }
+//
+//        }
+//    };
+
+    //Broadcast service for secured login
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
+ if(intent.hasExtra(MyServiceSecured.MY_SERVICE_PAYLOAD)) {
+     String message = intent.getStringExtra(MyServiceSecured.MY_SERVICE_PAYLOAD);
             DataItem[] dataItems = (DataItem[])
-                    intent.getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
-
-            for (DataItem item : dataItems) {
-                Output.append(item.getItemName() + "\n");
-                Log.d(TAG, "onReceive: "+ item.getItemName());
-            }
-
+                    intent.getParcelableArrayExtra(MyServiceSecured.MY_SERVICE_PAYLOAD);
+     for (DataItem item : dataItems) {
+         Output.append(item.getItemName() + "\n");
+         Log.d(TAG, "onReceive: " + item.getItemName());
+     }
+ } else if (intent.hasExtra(MyServiceSecured.MY_SERVICE_EXCEPTION)) {
+     String message = intent.getStringExtra(MyServiceSecured.MY_SERVICE_EXCEPTION);
+     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+ }
         }
     };
  TextView Output ;
@@ -51,7 +70,7 @@ private static final String XML_URL = "http://560057.youcanlearnit.net/secured/x
         clear = findViewById(R.id.btn_clear);
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mBroadcastReceiver , new
-                IntentFilter(MyService.MY_SERVICE_MESSAGE));
+                IntentFilter(MyServiceSecured.MY_SERVICE_MESSAGE));
 
 
         networkOk = NetworkHelper.hasNetworkAccess(this);
@@ -75,7 +94,7 @@ private static final String XML_URL = "http://560057.youcanlearnit.net/secured/x
 //        getSupportLoaderManager().initLoader(0,null,this).forceLoad();
 //        Toast.makeText(this, "Intent Service Launched", Toast.LENGTH_SHORT).show();
         if (networkOk) {
-            Intent intent = new Intent(this , MyService.class);
+            Intent intent = new Intent(this , MyServiceSecured.class);
             intent.setData(Uri.parse(XML_URL));
             startService(intent);
         }else {
