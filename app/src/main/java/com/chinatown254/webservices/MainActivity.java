@@ -2,20 +2,11 @@ package com.chinatown254.webservices;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.loader.content.Loader;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,13 +14,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.chinatown254.webservices.model.DataItem;
 import com.chinatown254.webservices.services.MyService;
 import com.chinatown254.webservices.utils.NetworkHelper;
 
 public class MainActivity extends AppCompatActivity  {
-    private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
-    private static final String XML_URL = "http://560057.youcanlearnit.net/services/xml/itemsfeed.php";
+//    private static final String JSON_URL = "http://560057.youcanlearnit.net/services/json/itemsfeed.php";
+//    private static final String XML_URL = "http://560057.youcanlearnit.net/services/xml/itemsfeed.php";
+private static final String XML_URL = "http://560057.youcanlearnit.net/secured/xml/itemsfeed.php";
     private boolean networkOk;
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
