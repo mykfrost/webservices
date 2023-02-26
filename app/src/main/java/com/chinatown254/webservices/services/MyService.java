@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.chinatown254.webservices.model.DataItem;
+import com.chinatown254.webservices.parsers.MyXMLParser;
 import com.chinatown254.webservices.utils.HttpHelper;
 import com.google.gson.Gson;
 
@@ -40,8 +41,12 @@ public class MyService extends IntentService {
            return;
         }
 
-        Gson gson  = new Gson();
-        DataItem[] dataItems = gson.fromJson(response ,DataItem[].class);
+//        Gson gson  = new Gson();
+//        DataItem[] dataItems = gson.fromJson(response ,DataItem[].class);
+
+        //Fetching using My Parsers
+
+        DataItem[] dataItems = MyXMLParser.parseFeed(response);
 
         Intent messageIntent = new Intent(MY_SERVICE_MESSAGE);
         messageIntent.putExtra(MY_SERVICE_PAYLOAD , dataItems);
